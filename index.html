@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srilekha Ganga - Data Analytics Professional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0a0a;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        body.light-mode .container {
+            background: white;
+        }
+
+        body.light-mode .skill-bar-bg {
+            background: #e9ecef;
+        }
+
+        body.light-mode .social-link {
+            background: #6c757d;
+        }
+
+        body.light-mode .social-link:hover {
+            background: #495057;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            background: #1a1a1a;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00ffff;
+            color: #0a0a0a;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        body.light-mode .theme-toggle {
+            background: #3498db;
+            color: white;
+        }
+
+        .name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #00ffff;
+        }
+
+        body.light-mode .name {
+            color: #2c3e50;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .fun-tagline {
+            font-size: 1rem;
+            color: #00ffff;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        body.light-mode .fun-tagline {
+            color: #3498db;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: flex-start;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #00ffff;
+            cursor: pointer;
+            overflow: hidden;
+            border: 3px solid #00ffff;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        .profile-pic:hover .upload-overlay {
+            opacity: 1;
+        }
+
+        #photoUpload {
+            display: none;
+        }
+
+        body.light-mode .profile-pic {
+            border-color: #3498db;
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .profile-content {
+            flex: 1;
+        }
+
+        .about {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .status {
+            background: #00ffff;
+            color: #0a0a0a;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        body.light-mode .status {
+            background: #3498db;
+            color: white;
+        }
+
+        /* Technical Skills */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        body.light-mode .section-title {
+            color: #2c3e50;
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .skill-name {
+            font-weight: 500;
+        }
+
+        .skill-percentage {
+            color: #888;
+        }
+
+        .skill-bar-bg {
+            background: #333;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #0080ff);
+            border-radius: 4px;
+            transition: width 2s ease-in-out;
+            position: relative;
+        }
+
+        body.light-mode .skill-bar-fill {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+
+        .skill-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #333;
+        }
+
+        body.light-mode .experience-item {
+            border-bottom-color: #e9ecef;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00ffff;
+            margin-bottom: 0.3rem;
+        }
+
+        body.light-mode .job-title {
+            color: #2c3e50;
+        }
+
+        .company {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .duration {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievements {
+            list-style: none;
+        }
+
+        .achievements li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+            color: #ccc;
+        }
+
+        body.light-mode .achievements li {
+            color: #555;
+        }
+
+        .achievements li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #00ffff;
+        }
+
+        body.light-mode .achievements li::before {
+            color: #3498db;
+        }
+
+        /* Education */
+        .education-item {
+            padding: 1.5rem;
+            background: #2a2a2a;
+            border-radius: 10px;
+            border-left: 4px solid #00ffff;
+        }
+
+        body.light-mode .education-item {
+            background: #f8f9fa;
+            border-left-color: #3498db;
+        }
+
+        .degree {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .university {
+            color: #00ffff;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        body.light-mode .university {
+            color: #3498db;
+        }
+
+        .edu-duration {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Contact & Social */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .email {
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        body.light-mode .email {
+            color: #3498db;
+        }
+
+        .email:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #333;
+            color: #e0e0e0;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background: #00ffff;
+            color: #0a0a0a;
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Floating mascot */
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            width: 50px;
+            height: 50px;
+            background: #00ffff;
+            color: #0a0a0a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        body.light-mode .mascot {
+            background: #3498db;
+            color: white;
+        }
+
+        .mascot:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .profile-pic {
+                margin: 0 auto;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="name">👋 This is Srilekha</div>
+            <div class="tagline">Still discovering my analytics superpowers...</div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-pic" onclick="document.getElementById('photoUpload').click()">
+                <span id="profileInitials">SG</span>
+                <img id="profileImage" style="display: none;" alt="Profile Picture">
+                <div class="upload-overlay">
+                    <span>📸 Upload</span>
+                </div>
+            </div>
+            <input type="file" id="photoUpload" accept="image/*" onchange="uploadPhoto(event)">
+            
+            <div class="profile-content">
+                <div class="fun-tagline">Data wizard🧚‍♀️💖</div>
+                <div class="about">
+                    I read (and analyze) every dataset: <strong>srilekha.ganga17@gmail.com</strong>
+                    <br><br>
+                    Building data solutions to drive business growth.<br>
+                    Started analyzing data to help organizations fight <em>inefficiency</em> - built <strong>predictive models</strong>.<br>
+                    Key achievements:
+                    <br>
+                    • ML lead scoring model with <em>15% conversion improvement</em><br>
+                    • Automated analytics platform delivering <em>3× faster insights</em><br>
+                    • Database optimization achieving <em>99.9% accuracy</em>
+                </div>
+                <div class="status">OPEN FOR FULL TIME 2025 OPPORTUNITIES</div>
+            </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div class="section">
+            <div class="section-title">Technical Skills</div>
+            
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">Python</span>
+                    <span class="skill-percentage">95%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 95%"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">SQL (PostgreSQL, MySQL, MongoDB)</span>
+                    <span class="skill-percentage">90%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 90%"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">Power BI & Tableau</span>
+                    <span class="skill-percentage">85%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">R & Statistical Analysis</span>
+                    <span class="skill-percentage">80%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">Machine Learning (Scikit-learn, NLTK)</span>
+                    <span class="skill-percentage">80%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">Docker & ETL Pipelines</span>
+                    <span class="skill-percentage">75%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-header">
+                    <span class="skill-name">Data Visualization (Matplotlib, Plotly)</span>
+                    <span class="skill-percentage">85%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 85%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="section">
+            <div class="section-title">Experience</div>
+            
+            <div class="experience-item">
+                <div class="job-title">Business Intelligence Analyst Intern</div>
+                <div class="company">Cambridge Premier Realty LLC</div>
+                <div class="duration">July 2024 - Present</div>
+                <ul class="achievements">
+                    <li>Built data models identifying customer behavior trends, optimizing promotional strategies</li>
+                    <li>Implemented data validation frameworks achieving 99.9% accuracy in strategic reports</li>
+                    <li>Reduced data inconsistencies by 15% through cross-functional data integration</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Analytics Student Researcher</div>
+                <div class="company">Northeastern University</div>
+                <div class="duration">June 2025 - September 2025</div>
+                <ul class="achievements">
+                    <li>Built automated analytics platform delivering 3× faster insights and 40% cost reduction</li>
+                    <li>Developed ML lead scoring model achieving 15% conversion rate improvement</li>
+                    <li>Engineered Docker infrastructure processing 90k+ data points/minute with 28× ROI</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Database Analyst</div>
+                <div class="company">SP Software (P) Limited</div>
+                <div class="duration">June 2020 - December 2023</div>
+                <ul class="achievements">
+                    <li>Resolved 1,200+ critical incidents within SLAs, improving service satisfaction by 35%</li>
+                    <li>Optimized database configurations achieving 99.9% backup success rate</li>
+                    <li>Reduced recovery time by 13% through performance optimization strategies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            <div class="education-item">
+                <div class="degree">Master of Science - Data Analytics</div>
+                <div class="university">Northeastern University, Massachusetts</div>
+                <div class="edu-duration">July 2024 - Present</div>
+            </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="section">
+            <div class="section-title">Certifications & Programs</div>
+            
+            <div class="experience-item">
+                <div class="job-title">Google Data Analytics Professional Certificate</div>
+                <div class="company">Google</div>
+                <div class="duration">2024</div>
+                <ul class="achievements">
+                    <li>Comprehensive training in data analysis, visualization, and statistical methods</li>
+                    <li>Proficient in R, SQL, Tableau, and spreadsheet analysis</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">McKinsey Forward Program</div>
+                <div class="company">McKinsey & Company</div>
+                <div class="duration">Apr 2025 - Jun 2025 • 3 mos</div>
+                <ul class="achievements">
+                    <li>Collaborative Problem Solving and Business Analysis</li>
+                    <li>Strategic thinking and consulting methodologies</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-title">Virtual Internship Trainee</div>
+                <div class="company">Goldman Sachs</div>
+                <div class="duration">Mar 2024 • 1 mo</div>
+                <ul class="achievements">
+                    <li>Advanced Excel and Python for predictive modeling</li>
+                    <li>Analytics and Quantitative Research methodologies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="section contact-section">
+            <div class="section-title">Let's Connect</div>
+            <div class="contact-info">
+                <a href="mailto:srilekha.ganga17@gmail.com" class="email">srilekha.ganga17@gmail.com</a>
+                <div style="margin-top: 0.5rem; color: #888;">Boston, MA</div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://github.com/srilekhaganga" target="_blank" class="social-link">
+                    <span class="social-icon">💻</span>
+                    GitHub
+                </a>
+                <a href="http://www.linkedin.com/in/srilekha-ganga" target="_blank" class="social-link">
+                    <span class="social-icon">💼</span>
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mascot -->
+    <div class="mascot" onclick="toggleMascot()">🐱</div>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const toggle = document.querySelector('.theme-toggle');
+            
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                toggle.innerHTML = '🌙 Dark';
+                localStorage.setItem('theme', 'light');
+            } else {
+                toggle.innerHTML = '☀️ Light';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const toggle = document.querySelector('.theme-toggle');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                toggle.innerHTML = '🌙 Dark';
+            }
+
+            // Animate skill bars on load
+            setTimeout(() => {
+                const skillBars = document.querySelectorAll('.skill-bar-fill');
+                skillBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+
+        // Photo upload
+        function uploadPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const profileImage = document.getElementById('profileImage');
+                    const profileInitials = document.getElementById('profileInitials');
+                    
+                    profileImage.src = e.target.result;
+                    profileImage.style.display = 'block';
+                    profileInitials.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Mascot interaction
+        function toggleMascot() {
+            const mascot = document.querySelector('.mascot');
+            const catFace = document.querySelector('.cat-face');
+            const emojis = ['🚀', '💻', '📊', '⚡', '🎯', '✨'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // Hide cat face and show emoji temporarily
+            catFace.style.display = 'none';
+            mascot.innerHTML = randomEmoji;
+            mascot.style.fontSize = '1.5rem';
+            mascot.style.transform = 'scale(1.3) rotate(360deg)';
+            
+            setTimeout(() => {
+                // Restore cat face
+                mascot.innerHTML = '';
+                mascot.appendChild(catFace);
+                catFace.style.display = 'flex';
+                mascot.style.fontSize = '1.8rem';
+                mascot.style.transform = 'scale(1)';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
